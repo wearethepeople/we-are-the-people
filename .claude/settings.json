@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Browser__get_page_text",
+      "Bash(npm run typecheck*)",
+      "mcp__Claude_Browser__read_page",
+      "Bash(npm run lint*)",
+      "mcp__Claude_Browser__read_console_messages",
+      "mcp__Claude_Browser__preview_logs",
+      "Bash(npm run test*)",
+      "mcp__Claude_Browser__find",
+      "mcp__Claude_Browser__tabs_context",
+      "mcp__Claude_Browser__read_network_requests",
+      "mcp__Claude_Preview__preview_snapshot",
+      "Bash(npm test*)",
+      "Bash(npm view *)",
+      "Bash(npm run format:check*)"
+    ]
+  }
+}

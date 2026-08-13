@@ -1,4 +1,5 @@
 import { useNavigation } from "react-router";
+import { z } from "zod";
 import { WrtpIcon } from "~/components/wrtp-icon";
 import { WrtpTextHorizontal } from "~/components/wrtp-text";
 import { Button } from "~/components/ui/button";
@@ -18,16 +19,18 @@ export function meta() {
   ];
 }
 
+const emailSchema = z.string().email();
+
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
-  const email = String(formData.get("email") ?? "");
+  const result = emailSchema.safeParse(formData.get("email"));
 
-  if (!email.includes("@")) {
+  if (!result.success) {
     return { ok: false, error: "Enter a valid email address." };
   }
 
   try {
-    await subscribe(email);
+    await subscribe(result.data);
     return { ok: true };
   } catch {
     return { ok: false, error: "Something went wrong. Please try again." };
@@ -70,7 +73,9 @@ export default function Home({ actionData }: Route.ComponentProps) {
               <OrangeUnderline>hear</OrangeUnderline> people.
             </h1>
             <p className="mt-12 max-w-[46ch] text-pretty text-[clamp(17px,2.4vw,20px)] leading-[1.55]">
-              We (ARE) The People is a civic identity project.<br/>No labels. No parties. We begin together.
+              We (ARE) The People is a civic identity project.
+              <br />
+              No labels. No parties. We begin together.
             </p>
           </section>
 
@@ -102,13 +107,13 @@ export default function Home({ actionData }: Route.ComponentProps) {
             ))}
           </section>
 
-          {/*<section className="pb-24">
+          <section className="pb-24">
             <h2 className="m-0 text-[clamp(24px,4vw,30px)] font-medium tracking-[-0.01em]">
               Stay updated.
             </h2>
             <p className="mt-3 mb-6 max-w-[48ch] text-pretty text-[17px] leading-[1.5] text-foreground/75">
-              An occasional letter about where the table is headed and what we&rsquo;re up to. No noise,
-              no spin.
+              An occasional letter about where the table is headed and what we&rsquo;re up to. No
+              noise, no spin.
             </p>
 
             {submitted ? (
@@ -139,7 +144,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
                 {actionData.error}
               </div>
             )}
-          </section>*/}
+          </section>
         </main>
 
         <footer className="flex flex-wrap items-center justify-between gap-4 border-border pt-6 pb-10 text-[13px] text-foreground/60">
