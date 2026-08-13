@@ -1,0 +1,89 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  color-scheme: light;
+
+  /* Design tokens from the Claude Design handoff (design_handoff_wrtp_landing/
+     README.md), assigned to shadcn/BaseUI's semantic variable names so
+     generated components pick these up with zero overrides. */
+  --background: #e7e0d8; /* paper */
+  --foreground: #231f20; /* ink */
+  --card: #e7e0d8;
+  --card-foreground: #231f20;
+  --popover: #e7e0d8;
+  --popover-foreground: #231f20;
+  --primary: #231f20; /* ink — button background */
+  --primary-foreground: #e7e0d8; /* paper — button text */
+  --secondary: #e7e0d8;
+  --secondary-foreground: #231f20;
+  --muted: #e7e0d8;
+  --muted-foreground: rgba(35, 31, 32, 0.6);
+  --accent: #f1673b; /* brand orange — hover states only */
+  --accent-foreground: #231f20;
+  --destructive: oklch(0.577 0.245 27.325); /* not brand-specified; shadcn default red */
+  --border: rgba(35, 31, 32, 0.25); /* hairline */
+  --input: rgba(35, 31, 32, 0.35); /* input border */
+  --ring: #231f20;
+  --radius: 2px; /* near-square, civic/printed feel — no shadows anywhere */
+
+  /* Brand palette available but unused on this page. */
+  --olive: #7a7a5e;
+  --ochre: #a67d48;
+  --periwinkle: #b0bce0;
+}
+
+@theme inline {
+  /* System font stack only — no third-party font requests (no Adobe Fonts/
+     Typekit), so the site makes zero cross-origin requests and sets no
+     cookies. The header wordmark will move to a hand-authored SVG (from
+     Illustrator) once available, rather than text set in a licensed face. */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+
+  --color-olive: var(--olive);
+  --color-ochre: var(--ochre);
+  --color-periwinkle: var(--periwinkle);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+body {
+  margin: 0;
+  line-height: 1.5;
+}
