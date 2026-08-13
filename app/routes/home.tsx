@@ -130,7 +130,10 @@ export default function Home({ actionData }: Route.ComponentProps) {
             </p>
 
             {submitted ? (
-              <div className="rounded-[2px] border border-input bg-white/40 px-5 py-[18px] text-base leading-normal" id="newsletter-success">
+              <div
+                className="rounded-[2px] border border-input bg-white/40 px-5 py-[18px] text-base leading-normal"
+                id="newsletter-success"
+              >
                 Thank you. You&rsquo;re in!
               </div>
             ) : (
