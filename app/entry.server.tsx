@@ -47,17 +47,32 @@ export default function handleRequest(
     const readyOption: keyof RenderToPipeableStreamOptions =
       (userAgent && isbot(userAgent)) || routerContext.isSpaMode ? "onAllReady" : "onShellReady";
 
+    let timeoutId: ReturnType<typeof setTimeout> | undefined = setTimeout(
+      () => abort(),
+      streamTimeout + 1000,
+    );
+
     const { pipe, abort } = renderToPipeableStream(
       <NonceContext.Provider value={nonce}>
-        <ServerRouter context={routerContext} url={request.url} />
+        <ServerRouter context={routerContext} url={request.url} nonce={nonce} />
       </NonceContext.Provider>,
       {
+        nonce,
         [readyOption]() {
           shellRendered = true;
-          const body = new PassThrough();
+          const body = new PassThrough({
+            final(callback) {
+              // Clear the timeout to prevent retaining the closure and memory leak
+              clearTimeout(timeoutId);
+              timeoutId = undefined;
+              callback();
+            },
+          });
           const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
+
+          pipe(body);
 
           resolve(
             new Response(stream, {
@@ -65,8 +80,6 @@ export default function handleRequest(
               status: responseStatusCode,
             }),
           );
-
-          pipe(body);
         },
         onShellError(error: unknown) {
           reject(error);
@@ -79,7 +92,5 @@ export default function handleRequest(
         },
       },
     );
-
-    setTimeout(abort, streamTimeout + 1000);
   });
 }

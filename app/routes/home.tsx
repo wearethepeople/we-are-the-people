@@ -1,4 +1,5 @@
-import { useNavigation } from "react-router";
+import { useEffect } from "react";
+import { Form, useNavigation } from "react-router";
 import { z } from "zod";
 import { WrtpIcon } from "~/components/wrtp-icon";
 import { WrtpTextHorizontal } from "~/components/wrtp-text";
@@ -23,6 +24,11 @@ const emailSchema = z.string().email();
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
+
+  if (formData.get("company")) {
+    return { ok: true };
+  }
+
   const result = emailSchema.safeParse(formData.get("email"));
 
   if (!result.success) {
@@ -32,7 +38,8 @@ export async function action({ request }: Route.ActionArgs) {
   try {
     await subscribe(result.data);
     return { ok: true };
-  } catch {
+  } catch (error) {
+    console.error(error);
     return { ok: false, error: "Something went wrong. Please try again." };
   }
 }
@@ -56,6 +63,12 @@ export default function Home({ actionData }: Route.ComponentProps) {
   const navigation = useNavigation();
   const submitting = navigation.state === "submitting";
   const submitted = actionData?.ok === true;
+
+  useEffect(() => {
+    if (submitted) {
+      document.getElementById("newsletter-success")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [submitted]);
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-background px-6 text-foreground">
@@ -117,11 +130,24 @@ export default function Home({ actionData }: Route.ComponentProps) {
             </p>
 
             {submitted ? (
-              <div className="rounded-[2px] border border-input bg-white/40 px-5 py-[18px] text-base leading-normal">
+              <div className="rounded-[2px] border border-input bg-white/40 px-5 py-[18px] text-base leading-normal" id="newsletter-success">
                 Thank you. You&rsquo;re in!
               </div>
             ) : (
-              <form method="post" action="?index" className="flex flex-wrap gap-2.5">
+              <Form
+                method="post"
+                action="?index"
+                preventScrollReset
+                className="flex flex-wrap gap-2.5"
+              >
+                <input
+                  type="text"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0"
+                />
                 <Input
                   type="email"
                   name="email"
@@ -137,7 +163,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
                 >
                   Join us
                 </Button>
-              </form>
+              </Form>
             )}
             {actionData?.ok === false && (
               <div className="mt-3 rounded-[2px] border border-input bg-white/40 px-5 py-[18px] text-base leading-normal">
