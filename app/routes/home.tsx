@@ -11,11 +11,11 @@ import type { Route } from "./+types/home";
 
 export function meta() {
   return [
-    { title: "We (ARE) The People" },
+    { title: "We (ARE) the People" },
     {
       name: "description",
       content:
-        "We (ARE) The People is a civic identity project. We are not labels. We are not parties. We are neighbors learning to hear each other again — and we begin together.",
+        "We (ARE) the People is a civic identity project. We are not labels. We are not parties. We are neighbors learning to hear each other again — and we begin together.",
     },
   ];
 }
@@ -86,7 +86,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
               <OrangeUnderline>hear</OrangeUnderline> people.
             </h1>
             <p className="mt-12 max-w-[46ch] text-pretty text-[clamp(17px,2.4vw,20px)] leading-[1.55]">
-              We (ARE) The People is a civic identity project.
+              We (ARE) the People is a civic identity project.
               <br />
               No labels. No parties. We begin together.
             </p>
@@ -177,7 +177,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
         </main>
 
         <footer className="flex flex-wrap items-center justify-between gap-4 border-border pt-6 pb-10 text-[13px] text-foreground/60">
-          <span>&copy; 2026 We (ARE) The People</span>
+          <span>&copy; 2026 We (ARE) the People</span>
           <span>
             We're not red&ensp;&middot;&ensp;We're not blue&ensp;&middot;&ensp;We are the People
           </span>
