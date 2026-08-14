@@ -6,6 +6,7 @@ import { WrtpTextHorizontal } from "~/components/wrtp-text";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { OrangeUnderline } from "~/components/visual-grammar";
+import { checkRateLimit, getClientIp } from "~/newsletter/rate-limit.server";
 import { subscribe } from "~/newsletter/subscribe.server";
 import type { Route } from "./+types/home";
 
@@ -27,6 +28,10 @@ export async function action({ request }: Route.ActionArgs) {
 
   if (formData.get("company")) {
     return { ok: true };
+  }
+
+  if (!checkRateLimit(getClientIp(request))) {
+    return { ok: false, error: "That's a lot of signups at once. Try again in a few minutes." };
   }
 
   const result = emailSchema.safeParse(formData.get("email"));
