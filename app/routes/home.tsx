@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Form, useNavigation } from "react-router";
 import { z } from "zod";
-import { WrtpIcon } from "~/components/wrtp-icon";
-import { WrtpTextHorizontal } from "~/components/wrtp-text";
+import { SiteFooter } from "~/components/site-footer";
+import { SiteHeader } from "~/components/site-header";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { OrangeUnderline } from "~/components/visual-grammar";
@@ -78,10 +78,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
   return (
     <div className="flex min-h-screen flex-col items-center bg-background px-6 text-foreground">
       <div className="flex w-full max-w-160 flex-col">
-        <header className="flex items-center gap-3.5 pt-10">
-          <WrtpIcon className="h-8 w-7.5 text-accent" />
-          <WrtpTextHorizontal className="h-5 text-foreground" />
-        </header>
+        <SiteHeader />
 
         <main className="flex flex-col">
           <section className="pt-24 pb-18">
@@ -181,12 +178,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
           </section>
         </main>
 
-        <footer className="flex flex-wrap items-center justify-between gap-4 border-border pt-6 pb-10 text-[13px] text-foreground/60">
-          <span>&copy; 2026 We (ARE) the People</span>
-          <span>
-            We're not red&ensp;&middot;&ensp;We're not blue&ensp;&middot;&ensp;We are the People
-          </span>
-        </footer>
+        <SiteFooter />
       </div>
     </div>
   );

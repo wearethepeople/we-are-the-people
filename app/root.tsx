@@ -1,5 +1,6 @@
 import {
   isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
@@ -9,6 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { useNonce } from "~/lib/nonce-context";
+import { SiteFooter } from "~/components/site-footer";
+import { SiteHeader } from "~/components/site-header";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const nonce = useNonce();
@@ -38,18 +41,36 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Something went wrong";
+  let message = "Something went wrong.";
   let details = "Please try again.";
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "Not found" : "Error";
-    details = error.status === 404 ? "That page doesn't exist." : details;
+    message = error.status === 404 ? "Page not found." : "Error.";
+    details =
+      error.status === 404
+        ? "We could not find the page you requested."
+        : details;
   }
 
   return (
-    <main className="container">
-      <h1>{message}</h1>
-      <p>{details}</p>
-    </main>
+    <div className="flex min-h-screen flex-col items-center bg-background px-6 text-foreground">
+      <div className="flex w-full max-w-160 flex-col">
+        <SiteHeader />
+
+        <main className="flex flex-1 flex-col justify-center py-24">
+          <h1 className="m-0 text-pretty text-[clamp(40px,7vw,64px)] leading-[1.05] font-medium tracking-[-0.02em]">
+            {message}
+          </h1>
+          <p className="mt-12 max-w-[46ch] text-pretty text-[clamp(17px,2.4vw,20px)] leading-[1.55]">
+            {details}{" "}
+            <Link to="/" className="underline">
+              Click here to go to the homepage.
+            </Link>
+          </p>
+        </main>
+
+        <SiteFooter />
+      </div>
+    </div>
   );
 }
