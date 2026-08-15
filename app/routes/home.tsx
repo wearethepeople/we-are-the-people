@@ -100,25 +100,25 @@ export default function Home({ actionData }: Route.ComponentProps) {
             </div>
 
             {PROJECTS.map((project) => (
-              <a
-                key={project.href}
-                href={project.href}
-                target="_blank"
-                rel="noopener"
-                className="group block border-b border-border py-8 no-underline transition-colors duration-150"
-              >
-                <div className="flex flex-wrap items-baseline justify-between gap-4">
-                  <h2 className="m-0 text-[clamp(24px,4vw,30px)] font-medium tracking-[-0.01em] text-foreground group-hover:text-accent">
+              <div key={project.href} className="border-b border-border py-8">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <h2 className="m-0 text-[clamp(24px,4vw,30px)] font-medium tracking-[-0.01em] text-foreground">
                     {project.title}
                   </h2>
-                  <span className="text-sm text-foreground/60 group-hover:text-accent">
-                    {project.domain}&nbsp;&#8599;
-                  </span>
+                  <Button
+                    nativeButton={false}
+                    render={
+                      <a href={project.href} target="_blank" rel="noopener" />
+                    }
+                    className="bg-accent text-accent-foreground hover:bg-accent/90"
+                  >
+                    {project.domain}
+                  </Button>
                 </div>
                 <p className="mt-3 max-w-[52ch] text-pretty text-[17px] leading-[1.5] text-foreground">
                   {project.body}
                 </p>
-              </a>
+              </div>
             ))}
           </section>
 
