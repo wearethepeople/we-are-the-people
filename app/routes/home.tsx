@@ -107,9 +107,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
                   </h2>
                   <Button
                     nativeButton={false}
-                    render={
-                      <a href={project.href} target="_blank" rel="noopener" />
-                    }
+                    render={<a href={project.href} target="_blank" rel="noopener" />}
                     className="bg-accent text-accent-foreground hover:bg-accent/90"
                   >
                     {project.domain}
