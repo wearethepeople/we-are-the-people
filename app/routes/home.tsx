@@ -90,7 +90,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
             <p className="mt-12 max-w-[46ch] text-pretty text-[clamp(17px,2.4vw,20px)] leading-[1.55]">
               A civic identity project.
               <br />
-              No labels. No parties. We begin together.
+              We begin together. Before parties, before labels.
             </p>
           </section>
 
