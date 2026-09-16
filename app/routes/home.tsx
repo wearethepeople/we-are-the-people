@@ -16,7 +16,7 @@ export function meta() {
     {
       name: "description",
       content:
-        "We (ARE) the People is a civic identity project. We are not labels. We are not parties. We are neighbors learning to hear each other again — and we begin together.",
+        "We (ARE) the People is a civic identity project. We are not labels. We are not parties. We begin together.",
     },
   ];
 }
@@ -90,7 +90,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
             <p className="mt-12 max-w-[46ch] text-pretty text-[clamp(17px,2.4vw,20px)] leading-[1.55]">
               A civic identity project.
               <br />
-              We begin together. Before labels, before sides.
+              We begin together. Before labels.
             </p>
           </section>
 
