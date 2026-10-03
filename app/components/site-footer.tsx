@@ -6,6 +6,14 @@ export function SiteFooter() {
         <a href="mailto:info@wearethepeople.us" className="text-foreground/60 hover:text-accent">
           info@wearethepeople.us
         </a>
+        <a
+          href="https://www.instagram.com/wrtp.us/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-foreground/60 hover:text-accent"
+        >
+          Instagram: @wrtp.us
+        </a>
       </div>
       <span>
         We're not red&ensp;&middot;&ensp;We're not blue&ensp;&middot;&ensp;We are the People
