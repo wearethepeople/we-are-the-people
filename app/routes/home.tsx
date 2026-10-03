@@ -54,13 +54,13 @@ const PROJECTS = [
     title: "It's Our Money",
     href: "https://itsourmoney.us",
     domain: "itsourmoney.us",
-    body: "Your money is yours, but you've never had a chance to direct where it should go. Now you can.",
+    body: "You pay taxes the federal government uses to run the country, but you've never had the chance to directly say where that money should go.\n\nNow you can weigh in on where your tax dollars should go and then see how your priorities compare with how the federal government actually spends them.",
   },
   {
     title: "What's Your Take?",
     href: "https://whatsyourtake.us",
     domain: "whatsyourtake.us",
-    body: "A pop-up civic guestbook crossing the country, asking everyone the same question. Together the answers become a civic mirror: who we are, and what we believe, when we speak outside of feeds and algorithms.",
+    body: "A traveling interactive and artistic pop-up civic guestbook, asking participants one question: What would you remind an American in 2076?\n\nTogether the answers become a civic mirror, showing what people say when they speak directly, outside of media, feeds, and algorithms.",
   },
 ];
 
@@ -104,7 +104,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
                 <h2 className="m-0 text-[clamp(24px,4vw,30px)] font-medium tracking-[-0.01em] text-foreground">
                   {project.title}
                 </h2>
-                <p className="mt-3 max-w-[52ch] text-pretty text-[17px] leading-[1.5] text-foreground">
+                <p className="mt-3 max-w-[52ch] text-pretty whitespace-pre-line text-[17px] leading-[1.5] text-foreground">
                   {project.body}
                 </p>
                 <Button
