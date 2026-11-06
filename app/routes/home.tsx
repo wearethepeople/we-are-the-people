@@ -198,7 +198,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
                   required
                   placeholder="your@email.com"
                   aria-label="Email address"
-                  className="h-auto min-w-0 flex-1 basis-60 rounded-[2px] border-input bg-white/55 px-4 py-3.5 text-base placeholder:text-foreground/40 focus-visible:border-foreground focus-visible:ring-0"
+                  className="h-auto min-w-0 flex-1 basis-60 rounded-[2px] border-input bg-white/55 px-4 py-3.5 text-base placeholder:text-foreground/65 focus-visible:border-foreground focus-visible:ring-0"
                 />
                 <Button
                   type="submit"

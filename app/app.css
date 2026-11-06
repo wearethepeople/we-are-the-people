@@ -21,7 +21,7 @@
   --secondary: #e7e0d8;
   --secondary-foreground: #231f20;
   --muted: #e7e0d8;
-  --muted-foreground: rgba(35, 31, 32, 0.6);
+  --muted-foreground: rgba(35, 31, 32, 0.7);
   --accent: #f1673b; /* brand orange — hover states only */
   --accent-foreground: #231f20;
   --destructive: oklch(0.577 0.245 27.325); /* not brand-specified; shadcn default red */
