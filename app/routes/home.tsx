@@ -8,15 +8,58 @@ import { Input } from "~/components/ui/input";
 import { OrangeUnderline } from "~/components/visual-grammar";
 import { checkRateLimit, getClientIp } from "~/newsletter/rate-limit.server";
 import { subscribe } from "~/newsletter/subscribe.server";
+import { SITE_ORIGIN } from "~/lib/seo";
 import type { Route } from "./+types/home";
+
+const SITE_URL = `${SITE_ORIGIN}/`;
+const SITE_NAME = "We (ARE) the People";
+const TITLE = "We (ARE) the People — Nonpartisan Civic Identity Project";
+const DESCRIPTION =
+  "We (ARE) the People is a civic identity project. We are not labels. We begin together.";
+const OG_IMAGE = `${SITE_URL}og-image.png`;
 
 export function meta() {
   return [
-    { title: "We (ARE) the People" },
+    { title: TITLE },
+    { name: "description", content: DESCRIPTION },
+    { tagName: "link", rel: "canonical", href: SITE_URL },
+    { property: "og:type", content: "website" },
+    { property: "og:site_name", content: SITE_NAME },
+    { property: "og:title", content: TITLE },
+    { property: "og:description", content: DESCRIPTION },
+    { property: "og:url", content: SITE_URL },
+    { property: "og:image", content: OG_IMAGE },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:alt", content: "We (ARE) the People logo" },
+    { name: "twitter:card", content: "summary_large_image" },
     {
-      name: "description",
-      content:
-        "We (ARE) the People is a civic identity project. We are not labels. We are not parties. We begin together.",
+      // Same WebSite + Organization @graph shape as whatsyourtake.us; this
+      // site is the Organization's home, so it carries the fuller record.
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": `${SITE_ORIGIN}/#website`,
+            url: `${SITE_ORIGIN}/`,
+            name: SITE_NAME,
+            description: DESCRIPTION,
+            publisher: { "@id": `${SITE_ORIGIN}/#organization` },
+          },
+          {
+            "@type": "Organization",
+            "@id": `${SITE_ORIGIN}/#organization`,
+            name: SITE_NAME,
+            alternateName: ["We Are the People", "WrTP"],
+            url: SITE_ORIGIN,
+            logo: `${SITE_ORIGIN}/android-chrome-512x512.png`,
+            email: "info@wearethepeople.us",
+            description: DESCRIPTION,
+            sameAs: ["https://www.instagram.com/wrtp.us/"],
+          },
+        ],
+      },
     },
   ];
 }
@@ -88,7 +131,7 @@ export default function Home({ actionData }: Route.ComponentProps) {
               <OrangeUnderline>hear</OrangeUnderline> people.
             </h1>
             <p className="mt-12 max-w-[46ch] text-pretty text-[clamp(17px,2.4vw,20px)] leading-[1.55]">
-              A civic identity project.
+              We (ARE) the People is a civic identity project.
               <br />
               We begin together. Before labels.
             </p>

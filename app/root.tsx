@@ -4,6 +4,7 @@ import {
   Links,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
 } from "react-router";
@@ -12,6 +13,16 @@ import "./app.css";
 import { useNonce } from "~/lib/nonce-context";
 import { SiteFooter } from "~/components/site-footer";
 import { SiteHeader } from "~/components/site-header";
+import { canonicalHostRedirect } from "~/lib/seo";
+
+// Runs for every route, including resource routes.
+export const middleware: Route.MiddlewareFunction[] = [
+  async ({ request }, next) => {
+    const target = canonicalHostRedirect(new URL(request.url));
+    if (target) throw redirect(target, 301);
+    return next();
+  },
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const nonce = useNonce();

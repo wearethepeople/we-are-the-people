@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wearethepeople.us/sitemap.xml
