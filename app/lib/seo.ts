@@ -8,7 +8,8 @@ export const SITE_ORIGIN = "https://wearethepeople.us";
 // A 301 consolidates them outright, where a canonical tag is only a hint.
 // The health check path is never redirected so Fly's checks keep answering
 // whatever host they arrive on; localhost is left alone for local dev.
-// Returns the destination, or null. Same rule as whatsyourtake.us.
+// Returns the destination, or null. Applied in server.ts, ahead of static
+// files. Same rule as whatsyourtake.us and itsourmoney.us.
 const CANONICAL_HOST = new URL(SITE_ORIGIN).hostname;
 const HEALTHCHECK_PATH = "/resources/healthcheck";
 

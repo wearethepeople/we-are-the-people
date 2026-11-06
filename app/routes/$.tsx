@@ -1,9 +1,9 @@
 import { data } from "react-router";
 
-// Catch-all for paths no other route matches. Matching them here, rather than
-// letting the router fall through, means the root middleware runs first, so
-// www and the Fly hostname redirect to the canonical host before the 404.
-// The root ErrorBoundary renders the not-found page.
+// Catch-all for paths no other route matches. Without it the router throws
+// "No route matches URL" and logs a stack trace for every 404. The root
+// ErrorBoundary renders the not-found page. Same as whatsyourtake.us and
+// itsourmoney.us.
 export function loader() {
   throw data(null, { status: 404 });
 }

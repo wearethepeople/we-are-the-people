@@ -20,7 +20,8 @@ ENV NODE_ENV=production
 
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/build ./build
-COPY package.json ./
+COPY package.json server.ts ./
+COPY app/lib/seo.ts ./app/lib/seo.ts
 
 EXPOSE 8080
 CMD ["npm", "run", "start"]
