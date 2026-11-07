@@ -1,8 +1,9 @@
 // Production server. Serves the build the way react-router-serve does, with
 // one addition: www and the Fly hostname are redirected to the canonical host
 // before anything else runs, static files included. Same pattern as
-// whatsyourtake.us and itsourmoney.us. HTTPS is forced at Fly's edge
-// (force_https in fly.toml), so nothing here handles plain HTTP.
+// whatsyourtake.us and itsourmoney.us. HTTPS is forced and terminated at
+// Fly's edge, which forwards plain HTTP to this process, so the app must
+// trust the proxy (see "trust proxy" below).
 // Development uses `react-router dev` and never runs this file.
 import { createRequestHandler } from "@react-router/express";
 import compression from "compression";
@@ -15,6 +16,12 @@ const PORT = Number(process.env.PORT ?? 3000);
 
 const app = express();
 app.disable("x-powered-by");
+// Fly terminates TLS and talks plain HTTP to us. Without this, req.protocol is
+// "http", React Router builds request URLs as http://wearethepeople.us/..., and
+// its CSRF check rejects every form POST (including the newsletter signup)
+// because the browser's Origin header is https://wearethepeople.us. Trusting
+// one hop makes Express read Fly's X-Forwarded-Proto / X-Forwarded-Host.
+app.set("trust proxy", 1);
 
 const getHost = (req: express.Request) => req.get("X-Forwarded-Host") ?? req.get("host") ?? "";
 
