@@ -37,9 +37,7 @@ export function SiteFooter() {
           </a>
         </div>
       </div>
-      <span>
-        We're not red&ensp;&middot;&ensp;We're not blue&ensp;&middot;&ensp;We are the People
-      </span>
+      <span>Before labels&ensp;&middot;&ensp;We're people</span>
     </footer>
   );
 }
